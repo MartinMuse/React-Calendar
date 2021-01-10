@@ -4,18 +4,26 @@ import {NavLink} from "react-router-dom";
 
 const MonitorWrapper = styled.div`
     display:flex;
+    flex-direction:row;
     justify-content:space-between;
     background-color:#1E1F21;
     color: white;
     padding:16px;
+    @media (max-width: 475px){
+        flex-direction:column;
+    }
 `
 const TextWrapper = styled.span`
-    font-size:32px;
+    font-size:3rem;
     margin-right:8px;
 `
 const ButtonsWrapper = styled.div`
     display: flex;
     align-items: center;
+    @media (max-width: 475px){
+       width:50%;
+       justify-content:space-between;
+    }
 `
 
 const ButtonWrapper = styled.button`
@@ -25,6 +33,10 @@ const ButtonWrapper = styled.button`
     margin:2px;
     border-radius: 4px;
     color:#E6E6E6;
+    @media (max-width: 475px){
+       height:30px;
+       margin: 5px;
+    }
 `
 const TodayButton = styled(ButtonWrapper)`
 padding-right:16px;

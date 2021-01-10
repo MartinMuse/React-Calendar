@@ -53,7 +53,12 @@ const DayWrapper = styled.div<IDayWrapper>`
 	width: 31px;
     display: flex;
     align-items: center;
-    justify-content: center;`
+    justify-content: center;
+    @media (max-width:295px){
+        height: 20px;
+        width: 20px;
+    }
+    `
 
 
 const GridWrapper = styled.div`

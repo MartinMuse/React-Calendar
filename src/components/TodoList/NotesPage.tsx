@@ -9,12 +9,11 @@ import {AppStateType} from "../../redux/store";
 const IntervalWrapper = styled.div`
     margin:auto;
     color:white;
-    display: flex;
-    flex-flow: row wrap;
-    align-content:space-between;
     font-size: 20px;
-    height:87%;
+    height:85%;
     width:70%;
+    display:flex;
+    flex-direction:column;
 `
 type MapStatePropsType = {
     days: Array<IDayItem> | undefined

@@ -4,17 +4,14 @@ import Calendar from "../Calendar/Calendar";
 import moment from "moment"
 import styled from "styled-components";
 import Title from "../Title/Title";
-import {Route} from "react-router-dom"
+import {Route, Redirect} from "react-router-dom"
 import ConnectedNotesPage from "../TodoList/NotesPage";
 
 const Wrapper = styled.div`
-// border: 1px solid #464648;
-border-radius:8px;
 display:flex;
 flex-direction:column;
 width:100%;
-height:100%;
-
+height:95%;
 `
 const ContentWrapper = styled.div`
     height:100%;
@@ -25,10 +22,10 @@ interface IActiveMonth {
     name: string
 }
 
-export interface IActiveDay{
-    fullDate:string,
-    number:string,
-    activeDayMonth:string
+export interface IActiveDay {
+    fullDate: string,
+    number: string,
+    activeDayMonth: string
 }
 
 const getDate = function (year: string, month: string, day: string,): string {
@@ -41,7 +38,7 @@ function App() {
     const [activeDay, setActiveDay] = useState<IActiveDay>({
         fullDate: today.format('MM-DD-YYYY'),
         number: today.format('D'),
-        activeDayMonth:today.format('MMMM')
+        activeDayMonth: today.format('MMMM')
     });
     const [activeMonth, setActiveMonth] = useState<IActiveMonth>({
         number: today.format('MM'),
@@ -50,15 +47,15 @@ function App() {
     const [activeYear, setActiveYear] = useState<string>(today.format('YYYY'))
     const startDay = moment(getDate(activeYear, activeMonth.number, '01')).startOf('month').startOf('week')
 
-    const onTodayButton=()=>{
+    const onTodayButton = () => {
         setActiveMonth({
-            number:today.format('MM'),
-            name:today.format('MMMM')
+            number: today.format('MM'),
+            name: today.format('MMMM')
         })
         setActiveDay({
             fullDate: today.format('MM-DD-YYYY'),
             number: today.format('D'),
-            activeDayMonth:today.format('MMMM')
+            activeDayMonth: today.format('MMMM')
         })
         setActiveYear(today.format('YYYY'))
         return
@@ -85,23 +82,28 @@ function App() {
     return (
         <Wrapper>
             <Title/>
-                <Route path={'/home'} render={() => (<ContentWrapper>
-                    <Monitor month={activeMonth.name} year={activeYear}
-                             onForwardMonth={onForwardMonth}
-                             onBackMonth={onBackMonth}
-                             isCalendar={true}
-                             onTodayButton={onTodayButton}/>
-                    <Calendar startDay={(startDay)} today={today} activeDay={activeDay.fullDate}
-                              setActiveDay={(day: IActiveDay) => (setActiveDay(day))}/>
-                </ContentWrapper>)}/>
-                <Route path={'/todo'} render={() => (<ContentWrapper>
+            <Route exact path={'/'}>
+                <Redirect to="/home"/>
+            </Route>
+            <Route exact path={'/home'} render={() => (<ContentWrapper>
+                <Monitor month={activeMonth.name} year={activeYear}
+                         onForwardMonth={onForwardMonth}
+                         onBackMonth={onBackMonth}
+                         isCalendar={true}
+                         onTodayButton={onTodayButton}/>
+                <Calendar startDay={(startDay)} today={today} activeDay={activeDay.fullDate}
+                          setActiveDay={(day: IActiveDay) => (setActiveDay(day))}/>
+            </ContentWrapper>)}/>
+            <Route path={'/todo'} render={() => (
+                <ContentWrapper>
                     <Monitor month={activeMonth.name} year={activeYear}
                              onForwardMonth={onForwardMonth}
                              onBackMonth={onBackMonth}
                              isCalendar={false}
                              day={activeDay.number}
                              activeDayMonth={activeDay.activeDayMonth}/>
-                    <ConnectedNotesPage dayId={activeDay.fullDate}/></ContentWrapper>)}/>
+                    <ConnectedNotesPage dayId={activeDay.fullDate}/>
+                </ContentWrapper>)}/>
         </Wrapper>
     )
 }

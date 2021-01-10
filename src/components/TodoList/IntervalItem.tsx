@@ -16,8 +16,9 @@ const ItemWrapper=styled.div`
     justify-content:center;
 `
 
-const TineItem=styled.div`
+const TimeItem=styled.div`
     width: 15%;
+    font-size:14px;
 `
 
 const ItemInput=styled.input`
@@ -25,7 +26,7 @@ const ItemInput=styled.input`
     border-color: #68666A;
     padding-left:16px;
     margin-right: 16px;
-    font-size:20px;
+    font-size:13px;
     width:85%;
     border-style:none;
     border-bottom-style:solid;
@@ -40,9 +41,9 @@ const IntervalItem: React.FC<IIntervalItem> = ({...props}) => {
     }
     return (
         <ItemWrapper>
-                <TineItem>
+                <TimeItem>
                     {props.inputId}
-                </TineItem>
+                </TimeItem>
             <ItemInput type={'text'} value={props.title} onChange={onChange}/>
         </ItemWrapper>
     )

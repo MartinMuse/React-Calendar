@@ -36,7 +36,6 @@ export type ActionTypes = ReturnType<typeof setTitleAC>
 function notesReducer(state = initialState, action: ActionTypes): IState | undefined {
     switch (action.type) {
         case SET_TITLE:
-            console.log(state)
             let updateItem = state.days.find((d) => (d.dayId === action.dayId));
             if (!updateItem) {
                 return {
